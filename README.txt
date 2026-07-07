@@ -96,28 +96,3 @@ secara statistik (p >= 0.05). Hal ini mengindikasikan bahwa pada
 data ini, sentimen pasar harian tidak menunjukkan hubungan linear
 yang jelas dengan volatilitas harga. Detail lengkap dapat dilihat
 pada file hasil_analisis.txt.
-
-[isi/lengkapi bagian ini dengan interpretasi dan pembahasan Anda
-sendiri, termasuk kemungkinan penyebab, keterbatasan data, dan
-saran analisis lanjutan, sesuai kebutuhan laporan]
-
-
-7. KETERBATASAN DAN SARAN PENGEMBANGAN
----------------------------------------------------------------
-- Analisis ini hanya menguji hubungan linear (Pearson). Hubungan
-  non-linear antar variabel belum tergali.
-- Data bersifat harian (daily), sehingga pengaruh sentimen yang
-  bersifat jangka pendek (misalnya dalam hitungan jam) mungkin
-  tidak tertangkap.
-- Belum memperhitungkan efek lag (jeda waktu), padahal pengaruh
-  sentimen terhadap volatilitas mungkin baru terlihat beberapa
-  hari setelahnya.
-- Pengembangan lebih lanjut dapat mencoba korelasi Spearman,
-  analisis lag, atau model regresi/time series yang lebih kompleks.
-
-
-8. REFERENSI
----------------------------------------------------------------
-[isi dengan referensi/pustaka yang Anda gunakan dalam laporan]
-
-===============================================================

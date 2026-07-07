@@ -1,3 +1,5 @@
+import src.utils
+
 """
 main.py
 File eksekusi utama proyek akhir ST406 - Analisis Sentimen Cryptocurrency.
@@ -10,7 +12,6 @@ Alur program:
 5. Membuat dan menyimpan grafik (harga vs sentimen) ke grafik_output.png
 """
 
-import src.utils
 
 # Konfigurasi path
 DATASET_PATH = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/Dataset/crypto_market_data_2026.csv"
@@ -32,8 +33,7 @@ def main():
     )
 
     # 3. Korelasi Pearson per koin, karena menggabung beberapa aset yang berbeda
-    #    skala harga dan karakteristiknya dapat membuat korelasi keseluruhan
-    #    kurang representatif
+    #    skala harga dan karakteristiknya dapat membuat korelasi keseluruhan kurang representatif.
     tabel_per_koin = src.utils.korelasi_per_kelompok(
         df, kolom_grup="Coin", kolom_x="Sentiment_Score", kolom_y="Volatility_Index"
     )
@@ -96,6 +96,15 @@ def main():
         judul=f"Harga vs Sentimen Pasar - {KOIN_UNTUK_GRAFIK}",
     )
     print("Grafik dual-axis disimpan ke:", OUTPUT_PNG)
+
+    # 6. Membuat scatter plot untuk memvisualisasikan hubungan antara Sentiment_Score dan Volatility_Index
+    src.utils.scatter_plot(
+        df,
+        kolom_x="Sentiment_Score",
+        kolom_y="Volatility_Index",
+        output_path="scatter_plot.png"
+    )
+    print("Scatter plot disimpan ke:", "scatter_plot.png")
 
 
 if __name__ == "__main__":

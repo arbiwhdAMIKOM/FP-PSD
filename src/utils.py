@@ -1,3 +1,7 @@
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+
 """
 utils.py
 Kumpulan fungsi penunjang untuk proyek analisis sentimen cryptocurrency.
@@ -9,9 +13,6 @@ Fungsi yang tersedia:
 4. buat_grafik_dual_axis -> membuat grafik dual-axis (harga vs sentimen) terhadap waktu
 """
 
-import pandas as pd
-from scipy import stats
-import matplotlib.pyplot as plt
 
 
 def load_data(filepath, kolom_waktu_kandidat=("DateTime", "Date"), koin=None, kolom_koin="Coin"):
@@ -185,3 +186,22 @@ def buat_grafik_dual_axis(
 
     fig.savefig(output_path, dpi=150)
     plt.close(fig)
+    
+def scatter_plot(df, kolom_x="Sentiment_Score", kolom_y="Volatility_Index", output_path="scatter_plot.png"):
+    """
+    Membuat scatter plot untuk memvisualisasikan hubungan antara dua variabel.
+
+    Parameter:
+        df (pandas.DataFrame): data yang akan divisualisasikan.
+        kolom_x (str): nama kolom variabel pada sumbu x.
+        kolom_y (str): nama kolom variabel pada sumbu y.
+        output_path (str): path penyimpanan file gambar.
+    """
+    plt.figure(figsize=(8, 6))
+    plt.scatter(df[kolom_x], df[kolom_y], alpha=0.5)
+    plt.title(f"Scatter Plot: {kolom_x} vs {kolom_y}")
+    plt.xlabel(kolom_x)
+    plt.ylabel(kolom_y)
+    plt.grid(True)
+    plt.savefig(output_path, dpi=150)
+    plt.close()
