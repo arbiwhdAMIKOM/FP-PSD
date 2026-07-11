@@ -16,7 +16,8 @@ Alur program:
 # Konfigurasi path
 DATASET_PATH = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/Dataset/crypto_market_data_2026.csv"
 OUTPUT_TXT = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/hasil_txt/hasil_analisis.txt"
-OUTPUT_PNG = "grafik_output.png"
+GRAFIK_DUAL_AXIS = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/VISUALISASI/grafik_dual_axis.png"
+SCATTER_PLOT = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/VISUALISASI/scatter_plot.png"
 
 # Koin yang dipakai sebagai contoh visualisasi deret waktu (harga vs sentimen)
 KOIN_UNTUK_GRAFIK = "Bitcoin"
@@ -92,19 +93,19 @@ def main():
         kolom_waktu="DateTime",
         kolom_harga="Price_USD",
         kolom_sentimen="Sentiment_Score",
-        output_path=OUTPUT_PNG,
+        output_path=GRAFIK_DUAL_AXIS,
         judul=f"Harga vs Sentimen Pasar - {KOIN_UNTUK_GRAFIK}",
     )
-    print("Grafik dual-axis disimpan ke:", OUTPUT_PNG)
+    print("Grafik dual-axis disimpan ke:", GRAFIK_DUAL_AXIS)
 
     # 6. Membuat scatter plot untuk memvisualisasikan hubungan antara Sentiment_Score dan Volatility_Index
     src.utils.scatter_plot(
         df,
         kolom_x="Sentiment_Score",
         kolom_y="Volatility_Index",
-        output_path="scatter_plot.png"
+        output_path=SCATTER_PLOT
     )
-    print("Scatter plot disimpan ke:", "scatter_plot.png")
+    print("Scatter plot disimpan ke:", SCATTER_PLOT)
 
 
 if __name__ == "__main__":

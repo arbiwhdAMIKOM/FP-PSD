@@ -1,0 +1,34 @@
+RINGKASAN ANALISIS SENTIMEN CRYPTOCURRENCY
+Proyek Akhir Sains Data - ST406
+==================================================
+
+1. INFORMASI DATASET
+--------------------------------------------------
+Jumlah baris data   : 3650
+Rentang waktu        : 2024-01-01 s.d. 2025-12-30
+Aset yang tercakup   : Bitcoin, Cardano, Ethereum, Polkadot, Solana
+
+2. KORELASI PEARSON KESELURUHAN
+--------------------------------------------------
+Variabel yang diuji  : Sentiment_Score vs Volatility_Index
+Jumlah observasi (n) : 3650
+Koefisien korelasi r : -0.0101
+P-value              : 0.5411
+Interpretasi         : Hubungan antara Sentiment_Score dan Volatility_Index tergolong sangat lemah / tidak ada korelasi yang berarti dan berarah negatif, serta secara statistik tidak signifikan (p >= 0.05).
+
+3. KORELASI PEARSON PER KOIN
+--------------------------------------------------
+Koin         n        r          p_value   
+Polkadot     730      0.0367     0.3220    
+Ethereum     730      0.0034     0.9261    
+Bitcoin      730      -0.0095    0.7986    
+Solana       730      -0.0378    0.3077    
+Cardano      730      -0.0428    0.2487    
+
+4. CATATAN
+--------------------------------------------------
+Nilai r mendekati 0 menunjukkan tidak ada hubungan linear yang jelas
+antara Sentiment_Score dan Volatility_Index pada data ini. P-value >= 0.05
+berarti hubungan tersebut tidak signifikan secara statistik, sehingga
+kesimpulan sebaiknya tidak digeneralisasi tanpa analisis lanjutan
+(misalnya dengan lag waktu, data intraday, atau model non-linear).
