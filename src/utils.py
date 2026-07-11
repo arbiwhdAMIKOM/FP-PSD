@@ -1,6 +1,8 @@
 import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
 
 """
 utils.py
@@ -205,3 +207,62 @@ def scatter_plot(df, kolom_x="Sentiment_Score", kolom_y="Volatility_Index", outp
     plt.grid(True)
     plt.savefig(output_path, dpi=150)
     plt.close()
+
+    
+def buat_heatmap_korelasi(df, kolom_numerik, output_path="heatmap_korelasi.png"):
+    """
+    Membuat Heatmap korelasi antar berbagai variabel numerik.
+    """
+    korelasi = df[kolom_numerik].corr()
+    
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(korelasi, annot=True, cmap="coolwarm", fmt=".2f", vmin=-1, vmax=1)
+    plt.title("Heatmap Korelasi Variabel Pasar Kripto")
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+
+def buat_cross_correlation_plot(df, koin, kolom_sentimen="Sentiment_Score", kolom_target="Volatility_Index", max_lag=7, output_path="cross_corr.png"):
+    """
+    Membuat Cross-Correlation Plot untuk melihat efek jeda waktu (time-lag)
+    antara Hype (Sentimen) dan Volatilitas untuk koin tertentu.
+    """
+    # Pastikan data diurutkan berdasarkan waktu
+    df_koin = df[df["Coin"] == koin].copy()
+    df_koin = df_koin.sort_values("DateTime")
+    
+    lags = range(-max_lag, max_lag + 1)
+    korelasi_lags = []
+    
+    for lag in lags:
+        # shift(-lag) berarti menggeser target ke belakang/depan sebanyak 'lag' hari
+        corr = df_koin[kolom_sentimen].corr(df_koin[kolom_target].shift(-lag))
+        korelasi_lags.append(corr)
+        
+    plt.figure(figsize=(10, 6))
+    # Gunakan marker untuk titik-titik lag
+    plt.stem(lags, korelasi_lags, basefmt=" ")
+    plt.axhline(0, color='black', linewidth=1)
+    
+    plt.title(f"Cross-Correlation: Hype vs Volatilitas ({koin})")
+    plt.xlabel("Lag (Hari)\n<-- Sentimen Mengikuti Volatilitas | Sentimen Mendahului Volatilitas -->")
+    plt.ylabel("Korelasi Pearson (r)")
+    plt.grid(True, linestyle="--", alpha=0.6)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+
+def hitung_time_lagged_correlation(df, koin, kolom_sentimen="Sentiment_Score", kolom_target="Volatility_Index", max_lag=7):
+    """
+    Fungsi untuk menghasilkan teks perhitungan korelasi dengan time-lag (T+n).
+    Berguna untuk dimasukkan secara otomatis ke hasil_analisis.txt
+    """
+    df_koin = df[df["Coin"] == koin].copy()
+    df_koin = df_koin.sort_values("DateTime")
+    
+    hasil_teks = f"Time-Lagged Correlation untuk {koin} ({kolom_sentimen} ke {kolom_target}):\n"
+    for lag in range(1, max_lag + 1):
+        corr = df_koin[kolom_sentimen].corr(df_koin[kolom_target].shift(-lag))
+        hasil_teks += f"- Pengaruh Hype hari ini terhadap Volatilitas {lag} hari ke depan (Lag +{lag}): r = {corr:.4f}\n"
+    
+    return hasil_teks

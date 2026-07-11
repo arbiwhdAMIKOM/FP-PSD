@@ -71,9 +71,11 @@ proyek_akhir_ST406/
    - pandas
    - scipy
    - matplotlib
+   - seaborn
+   - numpy
 
    Instalasi (jika belum ada):
-   pip install pandas scipy matplotlib
+   pip install pandas scipy matplotlib seabord numpy
 
 2) Jalankan perintah berikut dari dalam folder proyek_akhir_ST406:
    python main.py

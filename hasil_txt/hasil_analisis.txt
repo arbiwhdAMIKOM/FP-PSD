@@ -32,3 +32,36 @@ antara Sentiment_Score dan Volatility_Index pada data ini. P-value >= 0.05
 berarti hubungan tersebut tidak signifikan secara statistik, sehingga
 kesimpulan sebaiknya tidak digeneralisasi tanpa analisis lanjutan
 (misalnya dengan lag waktu, data intraday, atau model non-linear).
+
+5. ANALISIS PENGARUH JEDA WAKTU
+--------------------------------------------------
+Menganalisis apakah sentimen hari ini berpengaruh pada volatilitas di hari-hari berikutnya.
+
+Time-Lagged Correlation untuk Bitcoin (Sentiment_Score ke Volatility_Index):
+- Pengaruh Hype hari ini terhadap Volatilitas 1 hari ke depan (Lag +1): r = 0.0282
+- Pengaruh Hype hari ini terhadap Volatilitas 2 hari ke depan (Lag +2): r = 0.0039
+- Pengaruh Hype hari ini terhadap Volatilitas 3 hari ke depan (Lag +3): r = 0.0907
+- Pengaruh Hype hari ini terhadap Volatilitas 4 hari ke depan (Lag +4): r = -0.0080
+- Pengaruh Hype hari ini terhadap Volatilitas 5 hari ke depan (Lag +5): r = 0.0593
+- Pengaruh Hype hari ini terhadap Volatilitas 6 hari ke depan (Lag +6): r = -0.0048
+- Pengaruh Hype hari ini terhadap Volatilitas 7 hari ke depan (Lag +7): r = -0.0098
+
+Catatan: Jika ada nilai r yang lebih besar secara signifikan pada lag tertentu,
+ini menunjukkan bahwa hype media sosial butuh waktu (jeda hari) untuk berdampak pada harga.
+
+6. KESIMPULAN UMUM
+--------------------------------------------------
+1. Berdasarkan pengujian awal, tidak ditemukan bukti statistik yang kuat bahwa 
+   sentimen media sosial ('hype') memiliki korelasi linear langsung dengan 
+   volatilitas harga aset kripto pada hari yang sama (same-day correlation).
+2. Visualisasi penyebaran data (scatter plot) dan fluktuasi deret waktu 
+   menunjukkan pola acak. Hal ini mengindikasikan bahwa dinamika pasar kripto 
+   terlalu kompleks jika hanya dijelaskan dengan satu variabel sentimen secara instan.
+3. Mengingat ketiadaan korelasi di hari yang sama, hype di media sosial mungkin 
+   memiliki efek tertunda (delayed effect) yang ditunjukkan oleh Time-Lagged 
+   Correlation, atau lebih memengaruhi metrik lain seperti Volume Transaksi 
+   sebelum akhirnya berdampak pada volatilitas.
+
+Kesimpulan Akhir: Sentimen pasar harian tidak dapat dijadikan prediktor tunggal 
+yang andal untuk memproyeksi volatilitas harga kripto secara instan menggunakan 
+pendekatan linear sederhana.

@@ -15,9 +15,12 @@ Alur program:
 
 # Konfigurasi path
 DATASET_PATH = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/Dataset/crypto_market_data_2026.csv"
+
 OUTPUT_TXT = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/hasil_txt/hasil_analisis.txt"
 GRAFIK_DUAL_AXIS = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/VISUALISASI/grafik_dual_axis.png"
 SCATTER_PLOT = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/VISUALISASI/scatter_plot.png"
+HEATMAP_PLOT = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/VISUALISASI/heatmap_korelasi.png"
+CROSS_CORR_PLOT = "/Users/arbiwhd/Kuliah/UAS_GENAP/PSD/proyek_akhir_ST406/VISUALISASI/cross_corr.png"
 
 # Koin yang dipakai sebagai contoh visualisasi deret waktu (harga vs sentimen)
 KOIN_UNTUK_GRAFIK = "Bitcoin"
@@ -106,7 +109,56 @@ def main():
         output_path=SCATTER_PLOT
     )
     print("Scatter plot disimpan ke:", SCATTER_PLOT)
+    
+    # 7. Membuat Heatmap Korelasi Multi-Variabel
+    print("Membuat Heatmap Korelasi...")
+    kolom_numerik = ["Price_USD", "Volume_24h", "Market_Cap", "Sentiment_Score", "Social_Mentions", "Volatility_Index"]
+    src.utils.buat_heatmap_korelasi(df, kolom_numerik, output_path=HEATMAP_PLOT)
+    print("Heatmap disimpan ke:", HEATMAP_PLOT)
 
+    # 8. Membuat Cross-Correlation Plot (misalnya untuk Bitcoin)
+    print(f"Membuat Cross-Correlation Plot untuk {KOIN_UNTUK_GRAFIK}...")
+    src.utils.buat_cross_correlation_plot(
+        df, 
+        koin=KOIN_UNTUK_GRAFIK, 
+        output_path=CROSS_CORR_PLOT
+    )
+    print("Cross-Correlation Plot disimpan ke:", CROSS_CORR_PLOT)
+
+    # 9. Menambahkan Hasil Time-Lagged Correlation ke hasil_analisis.txt
+    print("Menghitung Time-Lagged Correlation...")
+    lagged_text = src.utils.hitung_time_lagged_correlation(df, koin=KOIN_UNTUK_GRAFIK)
+    
+    with open(OUTPUT_TXT, "a") as f:
+        f.write("\n5. PENGARUH JEDA WAKTU\n")
+        f.write("-" * 50 + "\n")
+        f.write("Menganalisis apakah sentimen hari ini berpengaruh pada volatilitas di hari-hari berikutnya.\n\n")
+        f.write(lagged_text + "\n")
+        f.write("Catatan: Jika ada nilai r yang lebih besar secara signifikan pada lag tertentu,\n")
+        f.write("ini menunjukkan bahwa hype media sosial butuh waktu (jeda hari) untuk berdampak pada harga.\n")
+        
+    print("Selesai! Hasil tambahan sudah di-generate ke dalam file analisis dan folder visualisasi.")
+
+    # 10. Menambahkan Kesimpulan
+    print("Menambahkan kesimpulan ke hasil analisis...")
+    with open(OUTPUT_TXT, "a", encoding="utf-8") as f:
+        f.write("\n6. KESIMPULAN\n")
+        f.write("-" * 50 + "\n")
+        f.write("1. Berdasarkan pengujian awal, tidak ditemukan bukti statistik yang kuat bahwa \n")
+        f.write("   sentimen media sosial atau hype memiliki korelasi linear langsung dengan \n")
+        f.write("   volatilitas harga aset kripto pada hari yang sama (same-day correlation).\n")
+        f.write("2. Visualisasi penyebaran data (scatter plot) dan fluktuasi deret waktu \n")
+        f.write("   menunjukkan pola acak. Hal ini mengindikasikan bahwa dinamika pasar kripto \n")
+        f.write("   terlalu kompleks jika hanya dijelaskan dengan satu variabel sentimen secara instan.\n")
+        f.write("3. Mengingat ketiadaan korelasi di hari yang sama, hype di media sosial mungkin \n")
+        f.write("   memiliki efek tertunda yang ditunjukkan oleh Time-Lagged \n")
+        f.write("   Correlation, atau lebih memengaruhi metrik lain seperti Volume Transaksi \n")
+        f.write("   sebelum akhirnya berdampak pada volatilitas.\n\n")
+        f.write("Kesimpulan Akhir: Sentimen pasar harian tidak dapat dijadikan prediktor tunggal \n")
+        f.write("yang andal untuk memproyeksi volatilitas harga kripto secara instan menggunakan \n")
+        f.write("pendekatan linear sederhana.\n")
+        
+    print("Selesai! Kesimpulan telah berhasil di-generate ke dalam hasil_analisis.txt.")
 
 if __name__ == "__main__":
     main()
