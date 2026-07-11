@@ -35,13 +35,6 @@ Kolom pada dataset:
 - Social_Mentions     : jumlah penyebutan di media sosial
 - Volatility_Index    : indeks volatilitas harga
 
-Catatan: dataset asli memiliki kolom "Date" (bukan "DateTime") dan
-kolom tambahan "Coin" karena berisi data gabungan dari lima aset
-cryptocurrency yang berbeda. Skrip pada proyek ini sudah disesuaikan
-untuk menangani struktur tersebut, termasuk melakukan analisis
-korelasi secara terpisah per koin agar hasil lebih representatif.
-
-
 3. STRUKTUR FOLDER
 ---------------------------------------------------------------
 proyek_akhir_ST406/
@@ -51,6 +44,9 @@ proyek_akhir_ST406/
 │   └── hasil_analisis.txt  -> ringkasan hasil statistik (output)
 ├── src/
 │   └──utils.py             -> kumpulan fungsi penunjang
+├── VISUALISASI/
+│   └──grafik_dual_axis.png -> visualisasi menggunakan grafik dual axis
+│   └──scatter_plot.png     -> visualisasi menggunakan scatter plot
 ├── main.py                 -> file eksekusi utama
 ├── grafik_output.png       -> visualisasi harga vs sentimen (output)
 └── README.txt              -> dokumentasi proyek (file ini)
@@ -71,7 +67,7 @@ proyek_akhir_ST406/
 
 5. CARA MENJALANKAN
 ---------------------------------------------------------------
-1) Pastikan Python 3 sudah terpasang beserta library berikut:
+1) library:
    - pandas
    - scipy
    - matplotlib
@@ -84,7 +80,8 @@ proyek_akhir_ST406/
 
 3) Program akan menghasilkan/memperbarui:
    - hasil_analisis.txt
-   - grafik_output.png
+   - grafik_dual_axis.png
+   - scatter_plot.png
 
 
 6. RINGKASAN TEMUAN AWAL
